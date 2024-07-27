@@ -496,6 +496,19 @@ Smaller codebases are easier to understand, test, and maintain. For example, in 
 - **Example:**
   In a large-scale e-commerce platform with numerous microservices, Istio can be used as a service mesh to manage communication between services. It provides fine-grained control over traffic routing, enabling canary releases and blue-green deployments. Istio also handles security by encrypting traffic between services and enforces policies such as mutual TLS authentication. Additionally, it offers observability features like tracing and metrics collection to monitor service interactions and performance.
 
+- **Diagram:**
+  ```plaintext
+  +-----------------+      +-----------------+      +-----------------+
+  |   Service A     | ---> |   Istio Proxy   | ---> |   Service B     |
+  +-----------------+      +-----------------+      +-----------------+
+                        |                     |
+                        v                     v
+                +-------------------+   +-------------------+
+                |   Metrics/Tracing |   |   Security (MTLS) |
+                |   and Logging     |   |                   |
+                +-------------------+   +-------------------+
+  ```
+
 ### Serverless Microservices
 
 - **Description:**
@@ -504,6 +517,29 @@ Smaller codebases are easier to understand, test, and maintain. For example, in 
 - **Example:**
   For a real-time data processing application, you might use AWS Lambda to handle various events, such as processing user uploads or triggering workflows based on data changes. Each function operates independently and scales automatically based on demand. This serverless approach reduces operational overhead and allows you to pay only for the compute resources you use.
 
+- **Diagram:**
+  ```plaintext
+  +--------------+       +--------------+
+  |  User Upload | ----> |  AWS Lambda  |
+  +--------------+       +--------------+
+                             |
+                             v
+                      +--------------+
+                      |   Process    |
+                      |   Data       |
+                      +--------------+
+
+  +--------------+       +--------------+
+  |  New Order   | ----> |  AWS Lambda  |
+  +--------------+       +--------------+
+                             |
+                             v
+                      +--------------+
+                      |  Process     |
+                      |  Order       |
+                      +--------------+
+  ```
+
 ### Domain-Driven Design (DDD)
 
 - **Description:**
@@ -511,6 +547,19 @@ Smaller codebases are easier to understand, test, and maintain. For example, in 
 
 - **Example:**
   In a financial services application, you might apply DDD principles to create bounded contexts for different domains such as "Account Management," "Transaction Processing," and "Customer Support." Each bounded context is implemented as a separate microservice with its own domain model and business logic. This design ensures that the services are well-aligned with the business requirements and minimizes dependencies between them.
+
+- **Diagram:**
+   ```plaintext
+  +-------------------+    +-------------------+    +-------------------+
+  | Account Management|    | Transaction       |    | Customer Support  |
+  | Service           |    | Processing        |    | Service           |
+  +-------------------+    +-------------------+    +-------------------+
+        |                        |                        |
+        v                        v                        v
+  +-------------------+    +-------------------+    +-------------------+
+  | Domain Model      |    | Domain Model      |    | Domain Model      |
+  +-------------------+    +-------------------+    +-------------------+
+  ```
 
 ### Polyglot Persistence
 
@@ -524,3 +573,16 @@ Smaller codebases are easier to understand, test, and maintain. For example, in 
   - **Search Engine (Elasticsearch):** For implementing full-text search and analytics features, such as searching for products based on various criteria.
 
   This approach ensures that each microservice utilizes the most appropriate database technology, enhancing performance and scalability.
+
+- **Diagram:**
+  ```plaintext
+  +-------------------+    +-------------------+    +-------------------+
+  | Order Service     |    | Product Service   |    | Search Service    |
+  | (PostgreSQL)      |    | (MongoDB)         |    | (Elasticsearch)   |
+  +-------------------+    +-------------------+    +-------------------+
+        |                        |                        |
+        v                        v                        v
+  +-------------------+    +-------------------+    +-------------------+
+  | Transaction Data  |    | Product Data      |    | Search Index      |
+  +-------------------+    +-------------------+    +-------------------+
+  ```
